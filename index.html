@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Resume Builder</title>
+  <style>
+    body {
+      font-family: Times New Roman, serif;
+      padding: 20px;
+    }
+
+    .resume {
+      border: 1px solid #ccc;
+      padding: 20px;
+      margin-top: 20px;
+      font-size: 11pt;
+      line-height: 1.6;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 6px;
+      font-family: Times New Roman;
+      font-size: 11pt;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 8px 16px;
+      font-size: 12pt;
+    }
+
+    h2 {
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Resume Builder</h1>
+
+  <form id="resumeForm">
+    <label>Full Name: <input type="text" id="name"></label>
+    <label>Email: <input type="email" id="email"></label>
+    <label>Phone: <input type="text" id="phone"></label>
+    <label>Education: <textarea id="education"></textarea></label>
+    <label>Experience: <textarea id="experience"></textarea></label>
+    <label>Skills: <textarea id="skills"></textarea></label>
+    <button type="button" onclick="generateResume()">Generate Resume</button>
+  </form>
+
+  <div id="resumeOutput" class="resume" style="display: none;">
+    <h2 id="rName"></h2>
+    <p id="rEmailPhone"></p>
+    <h3>Education</h3>
+    <p id="rEducation"></p>
+    <h3>Experience</h3>
+    <p id="rExperience"></p>
+    <h3>Skills</h3>
+    <p id="rSkills"></p>
+  </div>
+
+  <script>
+    function generateResume() {
+      document.getElementById("resumeOutput").style.display = "block";
+
+      document.getElementById("rName").innerText = document.getElementById("name").value;
+      document.getElementById("rEmailPhone").innerText =
+        document.getElementById("email").value + " | " + document.getElementById("phone").value;
+      document.getElementById("rEducation").innerText = document.getElementById("education").value;
+      document.getElementById("rExperience").innerText = document.getElementById("experience").value;
+      document.getElementById("rSkills").innerText = document.getElementById("skills").value;
+    }
+  </script>
+
+</body>
+</html>
