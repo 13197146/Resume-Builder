@@ -46,36 +46,73 @@
 
   <form id="resumeForm">
     <label>Name:</label>
-    <input type="text" id="name">
+    <input type="text" id="name" value="Arshdeep Singh">
 
     <label>Phone Number:</label>
-    <input type="text" id="phone">
+    <input type="text" id="phone" value="+91 90416-97227">
 
     <label>Email:</label>
-    <input type="email" id="email">
+    <input type="email" id="email" value="arshdeepsinghpanesar77@gmail.com">
 
     <label>GitHub Account:</label>
-    <input type="text" id="github">
+    <input type="text" id="github" value="github.com/yourusername">
 
     <label>LinkedIn Account:</label>
-    <input type="text" id="linkedin">
+    <input type="text" id="linkedin" value="linkedin.com/in/arshdeep-singh-4892b3271">
 
     <label>Residence:</label>
-    <input type="text" id="residence">
+    <input type="text" id="residence" value="Bathinda, Punjab, India">
 
     <label>Education:</label>
-    <div id="educationList"></div>
+    <div id="educationList">
+      <div>
+        <input type="text" placeholder="Institution Name" value="Gaini Zail Singh Campus, MRSPTU">
+        <input type="text" placeholder="Year of Passing" value="2025">
+      </div>
+    </div>
     <button type="button" onclick="addEducation()">+ Add Education</button>
 
+    <label>Internships:</label>
+    <div id="internshipsList">
+      <div>
+        <input type="text" placeholder="Internship Title" value="Robotics and AI at ISDVT, Bathinda (2023)">
+        <textarea placeholder="Internship Description">Designed and built circuits for Arduino, soldering and hardware debugging for reliability.</textarea>
+      </div>
+      <div>
+        <input type="text" placeholder="Internship Title" value="Thermal Plant Internship at Lehra Mohabbat (2024)">
+        <textarea placeholder="Internship Description">Assisted in installation, calibration, and maintenance of instruments in thermal power generation.</textarea>
+      </div>
+    </div>
+    <button type="button" onclick="addInternship()">+ Add Internship</button>
+
     <label>Skills:</label>
-    <div id="skillsList"></div>
+    <div id="skillsList">
+      <input type="text" placeholder="Skill" value="Autodesk AutoCAD – 2D">
+      <input type="text" placeholder="Skill" value="PCB Design (Single/Multi-Layer)">
+      <input type="text" placeholder="Skill" value="Circuit Simulation – Proteus, Multisim, Altium">
+      <input type="text" placeholder="Skill" value="Digital Circuit Design">
+      <input type="text" placeholder="Skill" value="IoT & Embedded Systems">
+    </div>
     <button type="button" onclick="addSkill()">+ Add Skill</button>
 
     <label>Experience:</label>
-    <textarea id="experience" rows="4"></textarea>
+    <textarea id="experience" rows="4">No professional experience yet. Looking forward to internships.</textarea>
 
     <label>Projects:</label>
-    <div id="projectsList"></div>
+    <div id="projectsList">
+      <div>
+        <input type="text" placeholder="Project Title" value="Smart Irrigation System">
+        <textarea placeholder="Project Description" rows="2">Automated irrigation using soil moisture sensor and Arduino. Activates motor based on soil dryness level.</textarea>
+      </div>
+      <div>
+        <input type="text" placeholder="Project Title" value="MATLAB Image Processing">
+        <textarea placeholder="Project Description" rows="2">Applied kernel filters (3x3 matrix) for basic image enhancement using MATLAB.</textarea>
+      </div>
+      <div>
+        <input type="text" placeholder="Project Title" value="SMART HELMET">
+        <textarea placeholder="Project Description" rows="2">Helmet with drowsiness, alcohol, accident, and wear detection. Uses Arduino Nano and Bluetooth for alerts.</textarea>
+      </div>
+    </div>
     <button type="button" onclick="addProject()">+ Add Project</button>
 
     <br><br>
@@ -86,6 +123,7 @@
     const educationList = document.getElementById("educationList");
     const skillsList = document.getElementById("skillsList");
     const projectsList = document.getElementById("projectsList");
+    const internshipsList = document.getElementById("internshipsList");
 
     function addEducation() {
       const div = document.createElement("div");
@@ -110,6 +148,15 @@
         <textarea placeholder="Project Description" rows="2"></textarea>
       `;
       projectsList.appendChild(div);
+    }
+
+    function addInternship() {
+      const div = document.createElement("div");
+      div.innerHTML = `
+        <input type="text" placeholder="Internship Title">
+        <textarea placeholder="Internship Description" rows="2"></textarea>
+      `;
+      internshipsList.appendChild(div);
     }
 
     function generateResume() {
@@ -139,6 +186,13 @@
       projectsList.querySelectorAll("div").forEach(div => {
         const inputs = div.querySelectorAll("input, textarea");
         projectsHTML += `<li><strong>${inputs[0].value}</strong>: ${inputs[1].value}</li>`;
+      });
+
+      // Internships list
+      let internshipsHTML = "";
+      internshipsList.querySelectorAll("div").forEach(div => {
+        const inputs = div.querySelectorAll("input, textarea");
+        internshipsHTML += `<li><strong>${inputs[0].value}</strong>: ${inputs[1].value}</li>`;
       });
 
       // Create new tab with resume
@@ -179,8 +233,11 @@
             <h3>Education</h3>
             <ul>${educationHTML}</ul>
 
-            <h3>${experience ? "Experience" : "Internships"}</h3>
-            <p>${experience || "No professional experience yet. Looking forward to internships."}</p>
+            <h3>Internships</h3>
+            <ul>${internshipsHTML}</ul>
+
+            <h3>${experience ? "Experience" : "Experience / Internships"}</h3>
+            <p>${experience || "No experience yet."}</p>
 
             <h3>Skills</h3>
             <ul>${skillsHTML}</ul>
@@ -194,11 +251,6 @@
       `);
       newWindow.document.close();
     }
-
-    // Add default entries
-    addEducation();
-    addSkill();
-    addProject();
   </script>
 
 </body>
